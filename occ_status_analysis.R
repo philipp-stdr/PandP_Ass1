@@ -56,8 +56,14 @@ collapsed <- summaryBy(Freq ~ difference, FUN = sum, data = df_occStat)
 # )
 
 # Bar-chart of occupational status differences between father-son pairs
-barplot(collapsed$Freq.sum, 
-        names = collapsed$difference,
-        col = "Navyblue",
-        ylim = c(0, 1400)
-        )
+# barplot(collapsed$Freq.sum, 
+#        names = collapsed$difference,
+#        col = "Navyblue",
+#        ylim = c(0, 1400)
+#        )
+
+# Added from pull-requests. Source the other used r-file. 
+source("savings_analysis.R", local = FALSE, print.eval = TRUE, verbose = TRUE)
+citation()
+
+# The request makes our code simpler, as we only have to source once from our markdown-file

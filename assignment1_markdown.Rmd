@@ -10,7 +10,8 @@ bibliography: packages.bib
 # Load packages and create BibTeX file for R-packages
 PackagesUsed <- c("ggplot2", "repmis", "doBy", "dplyr")
 
-setwd("~/Dropbox/4_Spring_2016/2_Collaborative Data Analysis/PandP_Ass1")
+# Set working directory
+setwd("~/Documents/Collaborative Social Science/Collaborative Analysis Assignments/PandP_Ass1")
 
 # Load PackagesUsed and create .bib BibTeX file
 repmis::LoadandCite(PackagesUsed, file = "Packages.bib", install = FALSE)
@@ -21,8 +22,12 @@ repmis::LoadandCite(PackagesUsed, file = "Packages.bib", install = FALSE)
 The dataset consists of a contingency table between the occupational status measured on an 8-point scale for fathers and their sons.  
 
 ```{r, include=FALSE}
+# Sources the data transformations needed for the first occStatus analysis. 
 source('occ_status_analysis.R')
+
+# Note, occ_status_analysis.R dynamically links to the other used r-file: savings_analysis.R.
 ```
+
 **Figure 1**
 ``` {r}
 dist_combined <- rbind(dist_fathers, dist_sons)
@@ -61,10 +66,6 @@ Note, the density is by construction higher around '0', as only a subset of obse
 
 # Analysis of the dataset 'LifeCycleSavings'
 
-```{r, include=FALSE}
-source('savings_analysis.R')
-```
-  
 The dataset 'LifeCycleSavings' consists of a data frame with 5 variables observed for 50 countries. The variables measure the savings rate (sr), real per-capita disposable income (dpi), the growth rate of dpi (ddpi) as well as the percentage of the population over 75 (pop75) and under 15 (pop15). All variables are numeric and averaged over the decade 1960 to 1970.
 
 ## Inspecting the data
