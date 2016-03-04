@@ -3,7 +3,7 @@ title: "Assignment1"
 author: "Philip & Philipp"
 date: "23 Feb 2016"
 output: pdf_document
-bibliography: Packages.bib
+bibliography: packages.bib
 ---
 
 ```{r, message=FALSE}
