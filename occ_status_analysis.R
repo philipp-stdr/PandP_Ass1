@@ -29,22 +29,6 @@ frequency_table <- data.frame(
   Sons = freq_sons
 )
 
-### Graphs
-
-# Create table
-knitr::kable(frequency_table, digits = 2)
-
-# Combined barplot of occupational status distribution for fathers and sons
-dist_combined <- rbind(dist_fathers, dist_sons)
-barplot(dist_combined, 
-        col=c("navyblue", "darkkhaki"),
-        main="Distribution of occupational status",
-        xlab = "Occupational status categories",
-        legend = c("Fathers", "Sons"),
-        ylim = c(0, 1600),
-        beside = TRUE
-)
-
 # Convert origin and destination to numeric variables
 df_occStat$origin <- as.numeric(df_occStat$origin)
 df_occStat$destination <- as.numeric(df_occStat$destination)
@@ -55,6 +39,23 @@ df_occStat$difference <- df_occStat$destination - df_occStat$origin
 # Summarize observations over changes in status by collapsing on differencesand create barplot
 collapsed <- summaryBy(Freq ~ difference, FUN = sum, data = df_occStat) 
 
+### Graphs
+
+# Create table
+# knitr::kable(frequency_table, digits = 2)
+
+# Combined barplot of occupational status distribution for fathers and sons
+# dist_combined <- rbind(dist_fathers, dist_sons)
+# barplot(dist_combined, 
+#        col=c("navyblue", "darkkhaki"),
+#        main="Distribution of occupational status",
+#        xlab = "Occupational status categories",
+#        legend = c("Fathers", "Sons"),
+#        ylim = c(0, 1600),
+#        beside = TRUE
+# )
+
+# Bar-chart of occupational status differences between father-son pairs
 barplot(collapsed$Freq.sum, 
         names = collapsed$difference,
         col = "Navyblue",

@@ -16,8 +16,8 @@ set_valid_wd(possiblewd)
 data("LifeCycleSavings")
 
 ## NOTE: 
-## All operations that do not involve data manipulation are commented out because
-## those that are relevant are included in the R markdown file. 
+## All operations that do not involve data manipulation are commented out, as they are
+## included with code-chunks in the R markdown file. 
 
 
 #######
@@ -36,7 +36,7 @@ res <- lapply(LifeCycleSavings, function(x) rbind( mean = mean(x) ,
 
 res_df <- as.data.frame(res) # list to data frame
 res_df <- t(res_df) # transpose data frame
-knitr::kable(res_df, digits = 2) # show data frame as table
+# knitr::kable(res_df, digits = 2) # show data frame as table
 
 
 # Using histograms to identify skewed data:

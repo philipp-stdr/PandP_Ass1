@@ -6,15 +6,16 @@ output: pdf_document
 bibliography: Packages.bib
 ---
 
-```{r, prompt=FALSE}
+```{r, message=FALSE}
 # Load packages and create BibTeX file for R-packages
-PackagesUsed <- c("ggplot2", "repmis", "doBy")
+PackagesUsed <- c("ggplot2", "repmis", "doBy", "dplyr")
 
-setwd("~/Dropbox/4_Spring_2016/2_Collaborative Data Analysis/PandP_Ass1")
+setwd("~/Documents/Collaborative Social Science/Collaborative Analysis Assignments/PandP_Ass1")
 
 # Load PackagesUsed and create .bib BibTeX file
 repmis::LoadandCite(PackagesUsed, file = "Packages.bib", install = FALSE)
 ```
+
 
 # Analysis of the dataset 'occupationalStatus'
 The dataset consists of a contingency table between the occupational status measured on an 8-point scales for fathers and their sons.  
@@ -35,17 +36,17 @@ barplot(dist_combined,
         )
 ```
 
-Figure 1 shows the distribution of occupational status for sons and fathers respectively. There does not appear to be any major generational shifts, though sons are slightly overrepresented in occupational status group 7 and 8.   
+Figure 1 shows the distribution of occupational status for sons and fathers respectively. Overall there has been no major generational shift, but a slightly higher share of sons are in status group 7 and 8 relative to fathers. 
 
 **Table 1**
 ```{r}
 knitr::kable(frequency_table, digits = 2)
 ```
 
-Table 1 is equivalent to figure 1 except that it shows the frequency distribution for each status category. 
+Table 1 is based on the same data as figure 1, but rather than showing the absolute number of fathers and sons in each status category, it shows the frequency distribution. 
 
 ## Generational mobility
-Figure 1 and table 1 show the overall distribution of occupational status, but is not informative on the extent to which there are generational mobility. Figure 2 shows the distribution of generational mobility. -7 indicates observations where the father had social status 8 and the son 1. As such, a zero is when father and son had the same occupational status.  
+Figure 1 and table 1 show the overall distribution of occupational status, but is not informative on the extent of generational mobility. To get an indication of generational mobility, we have calculated the difference in occupational status for each father-son pair. Thus, a '-7' indicates observations where the father had social status 8 and the son 1, and '0' is when father and son had the same occupational status. The number of observations with each difference is reported in figure 2. 
 
 **Figure 2**
 ```{r}
@@ -56,11 +57,15 @@ barplot(collapsed$Freq.sum,
         )
 ```
 
+Note, the density is by construction higher around '0', as only a subset of observation pairs can experience the highest and lowest scores. For instance, if a father has occupational status 7, the father-son pair can only have a difference score between [-6;1]. Nonetheless, the graph indicates that occupational status differs in a substantial share of the sample. 
+
 # Analysis of the dataset 'LifeCycleSavings'
 
 ```{r, include=FALSE}
 source('savings_analysis.R')
 ```
+
+<Could you add a note on what the dataset is about?>
 
 ## Inspecting the data
 
@@ -69,12 +74,16 @@ source('savings_analysis.R')
 knitr::kable(res_df, digits = 2)
 ```
   
-Table 2 shows that the variables dpi and ddpi are skewed. Consequently, we take a closer look at the distribution before starting the analysis.
+Table 2 shows that the variables dpi (disposable income) and ddpi (growth of disposable income) are skewed. Consequently, we take a closer look at the distributions.
+
 
 **Figure 3: Histogram of disposable income**
 ```{r}
 hist(LifeCycleSavings$dpi,
      ylim=c(0,20),
+     xlim=c(0,5000),
+     col = "navyblue",
+     border = "white",
      main = 'Disposable income (averaged between 1970 and 1980)', 
      xlab = 'Disposable income (in USD)',
      ylab = 'Frequency')
@@ -96,7 +105,7 @@ summary(combined_df$sr)
 ```
 
 
-Second, we inspect the main explanatory variable *disposable income*. The boxplot in figure 5 shows that 75 percent of the country observations have an average disposable income between 288,2 and 1796 USD a month. The average disposable income is `r mean(combined_df$dpi)` USD. The distribution is strongly right-skewed (higher mean than median). Therefore, we will use the log-transformation.
+Second, we inspect the main explanatory variable *disposable income*. The boxplot in figure 5 shows that 75 percent of the country observations have an average disposable income between 288,2 and 1796 USD a month. The average disposable income is `r mean(combined_df$dpi)` USD. The distribution is strongly right-skewed (higher mean than median). W will again use the log-transformation.
 
 **Figure 5**
 ```{r}
@@ -104,7 +113,7 @@ boxplot(combined_df$dpi, main = 'Distribution of disposable income (in USD)')
 summary(combined_df$dpi)
 ```
 
-We continue the analysis with a correlation analysis of *savings rate* and *disposable income*. The analysis shows that disposable income is postively associated with savings rates. The correlation coefficient of 0.28 is however not statistically significant at the 95% level.  
+In figure 6 we take a further look at the correlation between *savings rates* and *disposable income*. The two variables are positively correlated with a correlation coefficient of 0.28, which is borderline insignificant at the 95% level (p-value of 0.052).  
 
 **Figure 6**
 ```{r}
@@ -118,7 +127,7 @@ ggplot2::ggplot(combined_df, aes(ln.dpi, sr))+
 cor.test(combined_df$ln.dpi, combined_df$sr)
 ```
   
-In order to understand the correlation better we assess the distribution with a splitted sample into richer and poorer countries (poorer = 0, richer = 1). Figure 7 shows that richer countries have a much more compressed distribution that does not extend to very low savings rates. On average richer countries have a higher savings rate.  
+In order to understand the correlation better we assess the distribution of savings rates between richer and poorer countries (poorer = 0, richer = 1). Figure 7 shows that richer countries have a much more compressed distribution that does not extend to very low savings rates. Further, richer countries have, on average, higher savings rates.  
 
 **Figure 7**
 ```{r}
@@ -132,7 +141,7 @@ In a final step we make a graphical inspection of the following control variable
 1. Growth of disposable income 
 2. Share of old population (above 75)
 
-For the inspection we split the sample again with dummy variables in above and below median groups. Figure 8 shows that countries with higher growth rates seem to have a slightly stronger correlation between savings rate and disposable income. However, the confidence intervals are overlapping so the difference is not statisitiaclly significant.  
+For the inspection we again split the sample with dummy variables in above and below median groups. Figure 8 shows that countries with higher growth rates seem to have a slightly stronger correlation between savings rate and disposable income. However, the difference is not statisitiaclly significant.  
 
 **Figure 8: Growth of disposable income (slow growth = 0, fast growth = 1)**
 ```{r}
@@ -144,13 +153,14 @@ ggplot2::ggplot(combined_df, aes(ln.dpi, sr, color=dum.fast.foo)) +
        x = "disposable income (logged)", y = "% savings rate")
 ```
   
-Figure 9 shows that countries with a larger share of an older population seem to have a more compressed distribution of savings rates. On average savings rates are higher. This resembles the sample split for rich and poor countries.
+Figure 9 shows that countries with a larger share of an older population have a more compressed distribution of savings rates, and on average savings rates are higher. This resembles the sample split for rich and poor countries.
 
 **Figure 9: Share of older population (lower percentage = 0, higher percentage = 1)**
 ```{r}
 boxplot(combined_df$sr~combined_df$dum.old)
 ```
 
-Packages used [@CiteR], [@R-doBy], [@R-ggplot2] and [@R-repmis].
+## Software and packages used for the analysis
+The analysis is done in R [@CiteR] with the use of the following packages: "doBy" [@R-doBy], "ggplot2" [@R-ggplot2], "repmis" [@R-repmis] and "dplyr" [@R-dplyr].
 
 ## References
