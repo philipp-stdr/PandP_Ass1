@@ -10,4 +10,4 @@ The assignment involves accessing two core R datasets, performing data transform
 - savings_analysis.R: R-file with transformations of the dataset "LifeCycleSavings". 
 - assignment1_markdown.Rmd: R-markdown that includes the data description as well as graphical elements. 
 - assignment1_markdown.pdf: Pdf-rendered version of the markdown-file. 
-- Packages.bib: BibTEX-file with references to the R-packages used for the project. 
+- packages.bib: BibTEX-file with references to the R-packages used for the project. 
