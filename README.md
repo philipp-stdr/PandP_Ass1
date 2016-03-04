@@ -3,7 +3,7 @@ In this repository you can find the first pair assignment for 'Introduction to C
 
 **Students:** Philipp Ständer and Philip Unger. 
 
-The assignment involves accessing two core R datasets, performing data transformations, and presenting the distributions of the datasets. We have choosen the datasets: "occupationalStatus" and "LifeCycleSavings". 
+The assignment involves accessing two core R datasets, performing data transformations, as well as describing and illustrating the distributions of the datasets. We have choosen the datasets: "occupationalStatus" and "LifeCycleSavings". 
 
 ## File description
 - occ_status_analysis.R: R-file with transformations of the dataset "occupationalStatus". 
