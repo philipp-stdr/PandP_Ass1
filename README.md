@@ -1,9 +1,9 @@
 # Collaborative Social Science Data Analysis: Pair Assignment 1
 In this repository you can find the first pair assignment for 'Introduction to Collaborative Data Science' at the Hertie School of Governance.
 
-**Students:** Philip Ständer and Philip Unger. 
+**Students:** Philipp Ständer and Philip Unger. 
 
-The assignment contains data descriptions and simple analysis of two core R datasets, specifically "occupationalStatus" and "LifeCycleSavings". 
+The assignment involves accessing two core R datasets, performing data transformations, and presenting the distributions of the datasets. We have choosen the datasets: "occupationalStatus" and "LifeCycleSavings". 
 
 ## File description
 - occ_status_analysis.R: R-file with transformations of the dataset "occupationalStatus". 
